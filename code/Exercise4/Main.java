@@ -21,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String filename ="calculate_cyclomaticComplexity.txt"; 
+        String filename ="getter.txt"; 
         File myObj = new File(filename);
         filename = myObj.getAbsolutePath();
         myObj.createNewFile();
@@ -50,7 +50,6 @@ public class Main {
             return SourceRoot.Callback.Result.DONT_SAVE;
         });
         myWriter.close();
-        PublicElementsPrinter.generatehist(printer.complexityList);
     }
 
 
