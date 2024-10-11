@@ -57,11 +57,19 @@ public class PublicElementsPrinter extends VoidVisitorWithDefaults<Void> {
 
         for(MethodDeclaration method : declaration.getMethods()) {
             int complexity = calculateCyclomaticComplexity(method,arg);
+            complexityList.addLast(complexity);
+            String report = "enum= "+ declaration.getFullyQualifiedName().orElse("[Anonymous]") + " methode= " + method.getName().asString() + " complexite= " + Integer.toString(complexity) +"\n";
+            
+            try{
+            myWriter.write(report); // Write data to file
+            } catch (IOException e) {
+                System.out.println("Error writing to the file: " + e.getMessage());
+            }
         }
     
 
     }
-
+// non recursive cyclomatic complexity calcul
     public int calculateCyclomaticComplexity(MethodDeclaration method, Void arg){
 
         Optional<BlockStmt> block = method.getBody();
@@ -72,7 +80,7 @@ public class PublicElementsPrinter extends VoidVisitorWithDefaults<Void> {
         return 1;
     
     }
-
+// scanning of the methode is recursive in case of a block found.
     public int cyclomaticComplexity(BlockStmt block, Void arg){
         int complexity = 0;
 
